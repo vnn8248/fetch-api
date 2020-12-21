@@ -4,15 +4,9 @@ document.getElementById("button3").addEventListener("click", getExternal);
 
 function getText() {
     fetch("test.txt")
-    .then(function(response) {
-        return response.text();
-    })
-    .then(function(data) {
-        document.getElementById("output").innerHTML = data;
-    })
-    .catch(function(err) {
-        console.log(err);
-    })
+    .then(res => res.text())
+    .then(data => document.getElementById("output").innerHTML = data)
+    .catch(err => console.log(err))
 }
 
 
@@ -20,12 +14,10 @@ function getText() {
 // Get local json data
 function getJson() {
     fetch("posts.json")
-    .then(function(res) {
-        return res.json();
-    })
-    .then(function(data) {
+    .then(res => res.json())
+    .then(data => {
         let output = ``;
-        data.forEach(function(post) {
+        data.forEach(post => {
             output += `
                 
                     <h2>${post.title}</h2>
@@ -35,21 +27,17 @@ function getJson() {
         })
         document.getElementById("output").innerHTML = output;
     })
-    .catch(function(err) {
-        console.log(err);
-    })
+    .catch(err => console.log(err))
 }
 
 // Get external API data
 function getExternal() {
     fetch("https://api.github.com/users")
-    .then(function(res) {
-        return res.json();
-    })
-    .then(function(data) {
+    .then(res => res.json())
+    .then(data => {
         console.log(data);
         let output = ``;
-        data.forEach(function(user) {
+        data.forEach(user => {
             output += `
                   
                     <img src="${user.avatar_url}">
@@ -60,7 +48,5 @@ function getExternal() {
         })
         document.getElementById("output").innerHTML = output;
     })
-    .catch(function(err) {
-        console.log(err);
-    })
+    .catch(err => console.log(err));
 }
